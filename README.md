@@ -36,3 +36,27 @@ Python + Selenium 自動化測試專案
 ## Login Test
 
 ![Login Test](screenshots/login_test.png)
+
+# Login Test
+
+### TC001：Login Success
+
+Expected Result：Login Success
+
+![Login Success](screenshots/login_success.png)
+
+---
+
+### TC002：Invalid Username
+
+Expected Result：Show "Your username is invalid!"
+
+![Invalid Username](screenshots/login_invalid_username.png)
+
+---
+
+### TC003：Invalid Password
+
+Expected Result：Show "Your password is invalid!"
+
+![Invalid Password](screenshots/login_invalid_password.png)
