@@ -1,17 +1,20 @@
-# 執行成果
+# Selenium Web Automation Testing
 
-## Button Test
+Python + Selenium 自動化測試專案
 
-![Button Test](screenshots/button_test.png)
+## 測試案例
 
----
+- Login Test
+- Form Test
+- Button Test
 
-## Form Test
+## 技術
 
-![Form Test](screenshots/form_test.png)
+- Python
+- Selenium
+- WebDriver
+- Assertion Testing
 
----
+## 作者
 
-## Login Test
-
-![Login Test](screenshots/login_test.png)
+白晨亮
