@@ -1,15 +1,25 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+
 def test_button_click():
-    driver = webdriver.Chrome()
-    driver.get("https://the-internet.herokuapp.com/add_remove_elements/")
-    driver.find_element(By.CSS_SELECTOR, "button").click()
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
 
-    delete_button = driver.find_element(By.CLASS_NAME, "added-manually")
+    driver = webdriver.Chrome(options=options)
 
-    assert delete_button.is_displayed()
+    try:
+        driver.get("https://the-internet.herokuapp.com/add_remove_elements/")
 
-    print("按鈕測試成功！")
+        button = driver.find_element(By.XPATH, "//button[text()='Add Element']")
+        button.click()
 
-    driver.quit()
+        delete_button = driver.find_element(By.CLASS_NAME, "added-manually")
+
+        assert delete_button.is_displayed()
+
+    finally:
+        driver.quit()

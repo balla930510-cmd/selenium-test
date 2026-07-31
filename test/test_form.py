@@ -1,26 +1,32 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
+
 def test_form_success():
-    driver = webdriver.Chrome()
-    driver.get("https://the-internet.herokuapp.com/login")
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--window-size=1920,1080")
 
-    username = driver.find_element(By.ID, "username")
+    driver = webdriver.Chrome(options=options)
 
-    password = driver.find_element(By.ID, "password")
+    try:
+        driver.get("https://the-internet.herokuapp.com/login")
 
-    username.send_keys("測試帳號")
+        username = driver.find_element(By.ID, "username")
+        password = driver.find_element(By.ID, "password")
 
-    password.send_keys("123456")
+        username.send_keys("測試帳號")
+        password.send_keys("123456")
 
-    print("Username:", username.get_attribute("value"))
+        print("Username:", username.get_attribute("value"))
+        print("Password:", password.get_attribute("value"))
 
-    print("Password:", password.get_attribute("value"))
+        assert username.get_attribute("value") == "測試帳號"
+        assert password.get_attribute("value") == "123456"
 
-    assert username.get_attribute("value") == "測試帳號"
+        print("表單測試成功！")
 
-    assert password.get_attribute("value") == "123456"
-
-    print("表單測試成功！")
-    
-    driver.quit()
+    finally:
+        driver.quit()
