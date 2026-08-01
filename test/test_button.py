@@ -1,21 +1,11 @@
-from selenium.webdriver.common.by import By
+from pages.button_page import ButtonPage
 
 
 def test_button_click(driver):
-    driver.get(
-        "https://the-internet.herokuapp.com/add_remove_elements/"
-    )
+    button_page = ButtonPage(driver)
 
-    add_button = driver.find_element(
-        By.XPATH,
-        "//button[text()='Add Element']"
-    )
+    button_page.open()
 
-    add_button.click()
+    button_page.click_add_element()
 
-    delete_button = driver.find_element(
-        By.CLASS_NAME,
-        "added-manually"
-    )
-
-    assert delete_button.is_displayed()
+    assert button_page.is_delete_button_displayed()

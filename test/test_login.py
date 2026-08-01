@@ -1,15 +1,14 @@
-from selenium.webdriver.common.by import By
+from pages.login_page import LoginPage
 
 
 def test_login_success(driver):
-    driver.get("https://the-internet.herokuapp.com/login")
+    login_page = LoginPage(driver)
 
-    driver.find_element(By.ID, "username").send_keys("tomsmith")
-    driver.find_element(By.ID, "password").send_keys("SuperSecretPassword!")
+    login_page.open()
 
-    driver.find_element(
-        By.CSS_SELECTOR,
-        "button[type='submit']"
-    ).click()
+    login_page.login(
+        "tomsmith",
+        "SuperSecretPassword!"
+    )
 
     assert "Secure Area" in driver.page_source

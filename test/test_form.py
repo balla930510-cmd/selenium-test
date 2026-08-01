@@ -1,14 +1,13 @@
-from selenium.webdriver.common.by import By
+from pages.form_page import FormPage
 
 
 def test_form_success(driver):
-    driver.get("https://the-internet.herokuapp.com/login")
+    form_page = FormPage(driver)
 
-    username = driver.find_element(By.ID, "username")
-    password = driver.find_element(By.ID, "password")
+    form_page.open()
 
-    username.send_keys("測試帳號")
-    password.send_keys("123456")
+    form_page.enter_username("測試帳號")
+    form_page.enter_password("123456")
 
-    assert username.get_attribute("value") == "測試帳號"
-    assert password.get_attribute("value") == "123456"
+    assert form_page.get_username() == "測試帳號"
+    assert form_page.get_password() == "123456"
