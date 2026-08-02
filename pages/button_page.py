@@ -20,9 +20,7 @@ class ButtonPage(BasePage):
         self.driver.get(self.URL)
 
     def click_add_element(self):
-        self.wait_for_clickable(
-            self.ADD_BUTTON
-        ).click()
+        self.click(self.ADD_BUTTON)
 
     def is_delete_button_displayed(self):
         return self.wait_for_element(

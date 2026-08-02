@@ -13,21 +13,19 @@ class FormPage(BasePage):
         self.driver.get(self.URL)
 
     def enter_username(self, username):
-        self.wait_for_element(
-            self.USERNAME
-        ).send_keys(username)
+        self.send_keys(self.USERNAME, username)
 
     def enter_password(self, password):
-        self.wait_for_element(
-            self.PASSWORD
-        ).send_keys(password)
+        self.send_keys(self.PASSWORD, password)
 
     def get_username(self):
-        return self.wait_for_element(
-            self.USERNAME
-        ).get_attribute("value")
+        return self.get_attribute(
+            self.USERNAME,
+            "value"
+        )
 
     def get_password(self):
-        return self.wait_for_element(
-            self.PASSWORD
-        ).get_attribute("value")
+        return self.get_attribute(
+            self.PASSWORD,
+            "value"
+        )

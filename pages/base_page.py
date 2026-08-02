@@ -17,3 +17,20 @@ class BasePage:
         return self.wait.until(
             EC.element_to_be_clickable(locator)
         )
+
+    def click(self, locator):
+        element = self.wait_for_clickable(locator)
+        element.click()
+
+    def send_keys(self, locator, text):
+        element = self.wait_for_element(locator)
+        element.clear()
+        element.send_keys(text)
+
+    def get_text(self, locator):
+        element = self.wait_for_element(locator)
+        return element.text
+
+    def get_attribute(self, locator, attribute):
+        element = self.wait_for_element(locator)
+        return element.get_attribute(attribute)

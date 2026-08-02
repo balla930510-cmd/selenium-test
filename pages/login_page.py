@@ -14,19 +14,13 @@ class LoginPage(BasePage):
         self.driver.get(self.URL)
 
     def enter_username(self, username):
-        self.wait_for_element(
-            self.USERNAME
-        ).send_keys(username)
+        self.send_keys(self.USERNAME, username)
 
     def enter_password(self, password):
-        self.wait_for_element(
-            self.PASSWORD
-        ).send_keys(password)
+        self.send_keys(self.PASSWORD, password)
 
     def click_login(self):
-        self.wait_for_clickable(
-            self.LOGIN_BUTTON
-        ).click()
+        self.click(self.LOGIN_BUTTON)
 
     def login(self, username, password):
         self.enter_username(username)
