@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
 
 
-class LoginPage:
+class LoginPage(BasePage):
 
     URL = "https://the-internet.herokuapp.com/login"
 
@@ -9,20 +10,23 @@ class LoginPage:
     PASSWORD = (By.ID, "password")
     LOGIN_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
 
-    def __init__(self, driver):
-        self.driver = driver
-
     def open(self):
         self.driver.get(self.URL)
 
     def enter_username(self, username):
-        self.driver.find_element(*self.USERNAME).send_keys(username)
+        self.wait_for_element(
+            self.USERNAME
+        ).send_keys(username)
 
     def enter_password(self, password):
-        self.driver.find_element(*self.PASSWORD).send_keys(password)
+        self.wait_for_element(
+            self.PASSWORD
+        ).send_keys(password)
 
     def click_login(self):
-        self.driver.find_element(*self.LOGIN_BUTTON).click()
+        self.wait_for_clickable(
+            self.LOGIN_BUTTON
+        ).click()
 
     def login(self, username, password):
         self.enter_username(username)
