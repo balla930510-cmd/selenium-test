@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+
 import pytest
 from selenium import webdriver
 
@@ -32,11 +34,17 @@ def pytest_runtest_makereport(item, call):
         if driver:
             os.makedirs("screenshots", exist_ok=True)
 
+            timestamp = datetime.now().strftime(
+                "%Y%m%d_%H%M%S"
+            )
+
             screenshot_path = os.path.join(
                 "screenshots",
-                f"{item.name}.png"
+                f"{item.name}_{timestamp}.png"
             )
 
             driver.save_screenshot(screenshot_path)
 
-            print(f"Screenshot saved: {screenshot_path}")
+            print(
+                f"Screenshot saved: {screenshot_path}"
+            )
