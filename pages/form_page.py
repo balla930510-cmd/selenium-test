@@ -19,13 +19,7 @@ class FormPage(BasePage):
         self.send_keys(self.PASSWORD, password)
 
     def get_username(self):
-        return self.get_attribute(
-            self.USERNAME,
-            "value"
-        )
+        return self.get_attribute(self.USERNAME, "value")
 
     def get_password(self):
-        return self.get_attribute(
-            self.PASSWORD,
-            "value"
-        )
+        return self.get_attribute(self.PASSWORD, "value")

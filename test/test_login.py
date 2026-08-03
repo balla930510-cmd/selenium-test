@@ -11,4 +11,4 @@ def test_login_success(driver):
         "SuperSecretPassword!"
     )
 
-    assert "Secure Area" in driver.page_source
+    assert "You logged into a secure area!" in driver.page_source

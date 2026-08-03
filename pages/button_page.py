@@ -6,15 +6,8 @@ class ButtonPage(BasePage):
 
     URL = "https://the-internet.herokuapp.com/add_remove_elements/"
 
-    ADD_BUTTON = (
-        By.XPATH,
-        "//button[text()='Add Element']"
-    )
-
-    DELETE_BUTTON = (
-        By.CLASS_NAME,
-        "added-manually"
-    )
+    ADD_BUTTON = (By.XPATH, "//button[text()='Add Element']")
+    DELETE_BUTTON = (By.XPATH, "//button[text()='Delete']")
 
     def open(self):
         self.driver.get(self.URL)
@@ -23,6 +16,4 @@ class ButtonPage(BasePage):
         self.click(self.ADD_BUTTON)
 
     def is_delete_button_displayed(self):
-        return self.wait_for_element(
-            self.DELETE_BUTTON
-        ).is_displayed()
+        return self.wait_for_element(self.DELETE_BUTTON).is_displayed()
