@@ -1,28 +1,22 @@
 # Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyc
 
 # Pytest
 .pytest_cache/
 
-# Virtual Environment
-.venv/
-venv/
-env/
+# Test screenshots generated during execution
+screenshots/*.png
 
-# IDE
-.vscode/
-
-# Test Reports
-report.html
+# Allure
 allure-results/
 allure-report/
 
-# Screenshots
-test-screenshots/
-screenshots/*.png
+# Pytest HTML report
+report.html
+
+# IDE
+.vscode/
 
 # OS
 .DS_Store

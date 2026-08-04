@@ -2,6 +2,7 @@ from pages.login_page import LoginPage
 
 
 def test_login_success(driver):
+
     login_page = LoginPage(driver)
 
     login_page.open()
@@ -11,4 +12,4 @@ def test_login_success(driver):
         "SuperSecretPassword!"
     )
 
-    assert "You logged into a secure area!" in driver.page_source
+    assert login_page.is_logged_in()

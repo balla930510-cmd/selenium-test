@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+
 from pages.base_page import BasePage
 
 
@@ -9,20 +10,16 @@ class LoginPage(BasePage):
     USERNAME = (By.ID, "username")
     PASSWORD = (By.ID, "password")
     LOGIN_BUTTON = (By.CSS_SELECTOR, "button[type='submit']")
+    FLASH_MESSAGE = (By.ID, "flash")
+    SECURE_AREA = (By.CSS_SELECTOR, "h2")
 
     def open(self):
         self.driver.get(self.URL)
 
-    def enter_username(self, username):
-        self.send_keys(self.USERNAME, username)
-
-    def enter_password(self, password):
-        self.send_keys(self.PASSWORD, password)
-
-    def click_login(self):
-        self.click(self.LOGIN_BUTTON)
-
     def login(self, username, password):
-        self.enter_username(username)
-        self.enter_password(password)
-        self.click_login()
+        self.driver.find_element(*self.USERNAME).send_keys(username)
+        self.driver.find_element(*self.PASSWORD).send_keys(password)
+        self.driver.find_element(*self.LOGIN_BUTTON).click()
+
+    def is_logged_in(self):
+        return self.driver.find_element(*self.SECURE_AREA).is_displayed()
