@@ -3,14 +3,28 @@ from datetime import datetime
 
 import allure
 import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+
+
+def create_driver():
+    options = Options()
+
+    # GitHub Actions / CI environment
+    if os.getenv("CI"):
+        options.add_argument("--headless=new")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-gpu")
+
+    options.add_argument("--window-size=1920,1080")
+
+    return webdriver.Chrome(options=options)
 
 
 @pytest.fixture
 def driver():
-    # 你的 WebDriver 建立方式
-    from selenium import webdriver
-
-    driver = webdriver.Chrome()
+    driver = create_driver()
 
     yield driver
 
@@ -22,34 +36,32 @@ def pytest_runtest_makereport(item, call):
     outcome = yield
     report = outcome.get_result()
 
-    if report.when == "call" and report.failed:
+    setattr(item, f"rep_{report.when}", report)
 
-        driver = item.funcargs.get("driver")
 
-        if driver:
-            screenshot_dir = "screenshots"
-            os.makedirs(screenshot_dir, exist_ok=True)
+@pytest.fixture(autouse=True)
+def screenshot_on_failure(request, driver):
+    yield
 
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    if request.node.rep_call.failed:
 
-            screenshot_name = (
-                f"{item.name}_{timestamp}.png"
-            )
+        os.makedirs("screenshots", exist_ok=True)
 
-            screenshot_path = os.path.join(
-                screenshot_dir,
-                screenshot_name
-            )
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-            success = driver.save_screenshot(screenshot_path)
+        screenshot_name = (
+            f"{request.node.name}_{timestamp}.png"
+        )
 
-            print(f"\nScreenshot saved: {screenshot_path}")
-            print(f"Screenshot success: {success}")
+        screenshot_path = os.path.join(
+            "screenshots",
+            screenshot_name
+        )
 
-            if success:
-                with open(screenshot_path, "rb") as image_file:
-                    allure.attach(
-                        image_file.read(),
-                        name="Failure Screenshot",
-                        attachment_type=allure.attachment_type.PNG
-                    )
+        driver.save_screenshot(screenshot_path)
+
+        allure.attach.file(
+            screenshot_path,
+            name=screenshot_name,
+            attachment_type=allure.attachment_type.PNG
+        )
